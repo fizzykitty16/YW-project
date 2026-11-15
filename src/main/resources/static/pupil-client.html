@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pupil Client</title>
+</head>
+<body>
+
+<h3>View available lessons:</h3>
+<div><!-- TO BE REPLACED BY PUPIL LEVEL TRACKER -->
+	<!-- matriculation number input field -->
+	<input id="mat_number" type="number" placeholder="matriculation number">
+	
+	<!-- forename text input field (must be capitalised) -->
+	<input id="pupil_forename" type="text" placeholder="pupil forename">
+	
+	<!-- surname text input field (must be capitalised) -->
+	<input id="pupil_surname" type="text" placeholder="pupil surname">
+	
+	<!-- age drop-down menu -->
+	<select id="age">
+		<option value=5>Age 5</option>
+		<option value=6>Age 6</option>
+		<option value=7>Age 7</option>
+		<option value=8>Age 8</option>
+		<option value=9>Age 9</option>
+		<option value=10>Age 10</option>
+		<option value=11>Age 11</option>
+		<option value=12>Age 12</option>
+		<option value=13>Age 13</option>
+		<option value=14>Age 14</option>
+		<option value=15>Age 15</option>
+		<option value=16>Age 16</option>
+		<option value=17>Age 17</option>
+		<option value=18>Age 18</option>
+	</select>
+	
+	<!-- instrument drop-down menu -->
+	<select id="specified_instrument">
+		<option value="piano">Piano</option>
+		<option value="guitar">Guitar</option>
+		<option value="violin">Violin</option>
+	</select>
+	
+	<!-- level drop-down menu -->
+	<select id="pupil_level">
+		<option value=1>Grade 1</option>
+		<option value=2>Grade 2</option>
+		<option value=3>Grade 3</option>
+		<option value=4>Grade 4</option>
+		<option value=5>Grade 5</option>
+		<option value=6>Grade 6</option>
+		<option value=7>Grade 7</option>
+		<option value=8>Grade 8</option>
+	</select>
+	
+	<!-- lesson day drop-down menu -->
+	<select id="specified_day">
+		<option value="mon">Monday</option>
+		<option value="tue">Tuesday</option>
+		<option value="wed">Wednesday</option>
+		<option value="thu">Thursday</option>
+		<option value="fri">Friday</option>
+		<option value="sat">Saturday</option>
+	</select>
+	
+	<!-- view available lessons button -->
+	<button type="button" onclick="view_request();">View Available Lessons</button>
+</div>
+
+<!-- html element to display available lessons -->
+<div id="available_lessons_output"></div>
+
+<br><br>
+<h3>Book a lesson:</h3>
+<div>
+	<select id="lesson_day">
+		<option value="mon">Monday</option>
+		<option value="tue">Tuesday</option>
+		<option value="wed">Wednesday</option>
+		<option value="thu">Thursday</option>
+		<option value="fri">Friday</option>
+		<option value="sat">Saturday</option>
+	</select>
+
+	<select id="lesson_time">
+		<option value=0900>09:00</option>
+		<option value=0930>09:30</option>
+		<option value=1000>10:00</option>
+		<option value=1030>10:30</option>
+		<option value=1100>11:00</option>
+		<option value=1130>11:30</option>
+		<option value=1200>12:00</option>
+		<option value=1230>12:30</option>
+		<option value=1300>13:00</option>
+		<option value=1330>13:30</option>
+		<option value=1400>14:00</option>
+		<option value=1430>14:30</option>
+		<option value=1500>15:00</option>
+		<option value=1530>15:30</option>
+		<option value=1600>16:00</option>
+		<option value=1630>16:30</option>
+		<option value=1700>17:00</option>
+		<option value=1730>17:30</option>
+		<option value=1800>18:00</option>
+		<option value=1830>18:30</option>
+		<option value=1900>19:00</option>
+		<option value=1930>19:30</option>
+	</select>
+
+	<select id="tutor">
+		<option value="JP">John Piano</option>
+		<option value="JS">Jane Strings</option>
+	</select>
+
+	<select id="instrument">
+		<option value="piano">Piano</option>
+		<option value="guitar">Guitar</option>
+		<option value="violin">Violin</option>
+	</select>
+
+	<select id="lesson_level">
+		<option value=1>Grade 1</option>
+		<option value=2>Grade 2</option>
+		<option value=3>Grade 3</option>
+		<option value=4>Grade 4</option>
+		<option value=5>Grade 5</option>
+		<option value=6>Grade 6</option>
+		<option value=7>Grade 7</option>
+		<option value=8>Grade 8</option>
+	</select>
+
+	<button type="button" onclick="book_request();">Book Lesson</button>
+</div>
+
+<!-- html element to display booking output -->
+<div id="booking_output">
+	<!-- will either be "Booking successful!" -->
+	<!-- or an error and its type (input incorrect, lesson unavailable, etc) -->
+</div>
+</body>
+</html>
