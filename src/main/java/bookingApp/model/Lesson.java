@@ -35,4 +35,46 @@ public class Lesson {
 		}
 		else return false;
 	}
+	
+	public String getInstrument() {
+		return instrument;
+	}
+	public int getlevel() {
+		return level;
+	}
+	public String getTutor() {
+		return tutor;
+	}
+	public String getDay() {
+		return day;
+	}
+	public int getTime() {
+		return time;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

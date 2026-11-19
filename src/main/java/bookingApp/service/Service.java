@@ -2,13 +2,26 @@ package bookingApp.service;
 
 import java.util.*;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import bookingApp.model.Lesson;
 
 public class Service {
 	private Map<Integer, Lesson> db;
 	
+	private List<Integer> mat_numbers;
 	
 	public Service() {
+		mat_numbers = new ArrayList<Integer>();
+		mat_numbers.add(101);
+		mat_numbers.add(102);
+		mat_numbers.add(103);
+		mat_numbers.add(104);
+		mat_numbers.add(105);
+		mat_numbers.add(106);
+		mat_numbers.add(107);
+		
 		db = new HashMap<>();
 		
 		Lesson piano4JPmon1600 = new Lesson("piano", 4, "JP", "mon", 1600, false, 0);
@@ -28,7 +41,12 @@ public class Service {
 	}
 	
 	
-	public List<Lesson> getBookableLessons(String instrument, int level, String day) {
+	public List<Lesson> getBookableLessons(int mat_number, int age, String instrument, int level, String day) {
+		//check matriculation number is valid
+		if (!mat_numbers.contains(mat_number)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid matriculation number.");
+		}
+		
 		if (db == null) {
 			return null;
 		}
@@ -44,4 +62,74 @@ public class Service {
 		list.addAll(db.values());
 		return list;
 	}
+	
+	public void bookLesson(int mat_number, String pupil_forename, String pupil_surname, int pupil_age, String pupils_instrument, int pupils_level, String lesson_day, int lesson_time, String lesson_tutor, String lesson_instrument, int lesson_level) {
+		//check matriculation number is valid
+		if (!mat_numbers.contains(mat_number)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid matriculation number.");
+		}
+		
+		
+		//check lesson exists - using instrument, day, time, tutor (no need for level bc time is unique)
+		//AI-assisted code block:
+		boolean lesson_exists = db.values().stream().anyMatch(
+				lesson -> lesson_instrument.equals(lesson.getInstrument()) && lesson_day.equals(lesson.getDay()) && lesson_time == lesson.getTime() && lesson_tutor.equals(lesson.getTutor()));				
+		//end of AI-assisted code block
+				
+		if(lesson_exists == false) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input: " + lesson_tutor + " does not teach " + lesson_instrument + " at this time.");
+		}
+		
+		//AI-assisted code block:
+		Lesson lessonToBook = db.values().stream()
+				.filter(lesson -> lesson_day.equals(lesson.getDay()) && lesson_time == lesson.getTime() && lesson_tutor.equals(lesson.getTutor()))
+				.findFirst()
+				.orElse(null);
+		//end of AI-assisted code block
+		
+		if (lessonToBook.isBooked()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This lesson is already booked.");
+		}
+		
+		
+		//check if allowed to book
+		if (pupils_instrument == lesson_instrument && pupils_level == lesson_level) {
+			
+			//for evening lessons:
+			if (lesson_time >= 1800 && pupil_age >=16) {
+				
+			}
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

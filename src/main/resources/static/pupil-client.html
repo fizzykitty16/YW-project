@@ -144,15 +144,13 @@
 		const available_lessons_output = document.getElementById("available_lessons_output");
 
 		const mat_val = document.getElementById("mat_number").value;
-		const fn_val = document.getElementById("pupil_forename").value;
-		const sn_val = document.getElementById("pupil_surname").value;
 		const age_val = document.getElementById("pupil_age").value;
 		const instrument_val = document.getElementById("specified_instrument").value;
 		const pupil_level_val = document.getElementById("pupil_level").value;
 		const day_val = document.getElementById("specified_day").value;
 
 		//set viewing request URL
-		let view_url = "http://localhost:8080/bookable_lessons" + encodeURIComponent(mat_val) + encodeURIComponent(fn_val) + encodeURIComponent(sn_val) + encodeURIComponent(age_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(day_val);
+		let view_url = "http://localhost:8080/bookable_lessons/view" + encodeURIComponent(mat_val) + encodeURIComponent(age_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(day_val);
 
 		//send GET request and process the response
 		fetch(view_url).
@@ -165,7 +163,10 @@
 		const booking_output = document.getElementById("booking_output");
 
 		const mat_val = document.getElementById("mat_number").value;
-
+		const fn_val = document.getElementById("pupil_forename").value;
+		const sn_val = document.getElementById("pupil_surname").value;
+		const instrument_val = document.getElementById("specified_instrument").value;
+		const pupil_level_val = document.getElementById("pupil_level").value;
 		const booking_day_val = document.getElementById("lesson_day").value;
 		const booking_time_val = document.getElementById("lesson_time").value;
 		const booking_tutor_val = document.getElementById("lesson_tutor").value;
@@ -173,7 +174,7 @@
 		const booking_lesson_level_val = document.getElementById("lesson_level").value;
 
 		//set booking request URL
-		let booking_url = "http://localhost:8080/bookable_lessons" + encodeURIComponent(booking_day_val) + encodeURIComponent(booking_time_val) + encodeURIComponent(booking_tutor_val) + encodeURIComponent(booking_instrument_val) + encodeURIComponent(booking_lesson_level_val) + encodeURIComponent(mat_val);
+		let booking_url = "http://localhost:8080/bookable_lessons/book" + encodeURIComponent(mat_val) + encodeURIComponent(fn_val) + encodeURIComponent(sn_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(booking_day_val) + encodeURIComponent(booking_time_val) + encodeURIComponent(booking_tutor_val) + encodeURIComponent(booking_instrument_val) + encodeURIComponent(booking_lesson_level_val);
 
 		fetch(booking_url).
 		then(response => response.json()).
