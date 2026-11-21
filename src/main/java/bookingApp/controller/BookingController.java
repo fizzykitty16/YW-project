@@ -19,10 +19,10 @@ import bookingApp.service.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/bookable_lessons") //<-- learned to put this here via AI
-public class Controller {
-	private Service service;
+public class BookingController {
+	private BookingService service;
 	
-	public Controller(Service s) {
+	public BookingController(BookingService s) {
 		this.service = s;
 	}
 	

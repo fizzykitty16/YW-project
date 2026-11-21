@@ -4,16 +4,18 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import bookingApp.model.Lesson;
 
-public class Service {
+@Component
+public class BookingService {
 	private Map<Integer, Lesson> db;
 	
 	private List<Integer> mat_numbers;
 	
-	public Service() {
+	public BookingService() {
 		mat_numbers = new ArrayList<Integer>();
 		mat_numbers.add(101);
 		mat_numbers.add(102);
