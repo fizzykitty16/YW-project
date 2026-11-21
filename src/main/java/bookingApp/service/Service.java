@@ -1,6 +1,7 @@
 package bookingApp.service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,7 +43,6 @@ public class Service {
 	
 	
 	public List<Lesson> getBookableLessons(int mat_number, int age, String instrument, int level, String day) {
-		//check matriculation number is valid
 		if (!mat_numbers.contains(mat_number)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid matriculation number.");
 		}
@@ -51,26 +51,32 @@ public class Service {
 			return null;
 		}
 		
-		List<Lesson> list = new ArrayList<Lesson>();
-		//check against booked, instrument, level + day here
-		//code for this block found at https://dev.java/learn/language/fp/refactoring-to-functional-style/for-each-with-if/
+		List<Lesson> bookableLessons = new ArrayList<Lesson>();
+		//AI-assisted code block
+		db.values().stream()
+				.filter(lesson -> lesson.isBooked() == false && lesson.getInstrument().equals(instrument) && lesson.getLevel() == level && lesson.getDay().equals(day))
+				.forEach(bookableLessons::add);
+		//end of AI-assisted code block
 		
-		//google: in java, how to add only some elements of a hashmap, that match a condition, to a list
-		
-		//then afterwards, may need to edit vvv
-		
-		list.addAll(db.values());
-		return list;
+		return bookableLessons;
 	}
 	
+	
+	
+	
 	public void bookLesson(int mat_number, String pupil_forename, String pupil_surname, int pupil_age, String pupils_instrument, int pupils_level, String lesson_day, int lesson_time, String lesson_tutor, String lesson_instrument, int lesson_level) {
-		//check matriculation number is valid
 		if (!mat_numbers.contains(mat_number)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid matriculation number.");
 		}
 		
+		if(lesson_time >= 1800 && pupil_age <= 15) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pupils must be aged 16 or over to book a lesson after 18:00.");
+		}
 		
-		//check lesson exists - using instrument, day, time, tutor (no need for level bc time is unique)
+		if (!(pupils_instrument == lesson_instrument && pupils_level == lesson_level)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect instrument or level selected. Please book a lesson for an instrument you are learning, at your current level.");
+		}
+		
 		//AI-assisted code block:
 		boolean lesson_exists = db.values().stream().anyMatch(
 				lesson -> lesson_instrument.equals(lesson.getInstrument()) && lesson_day.equals(lesson.getDay()) && lesson_time == lesson.getTime() && lesson_tutor.equals(lesson.getTutor()));				
@@ -91,45 +97,6 @@ public class Service {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This lesson is already booked.");
 		}
 		
-		
-		//check if allowed to book
-		if (pupils_instrument == lesson_instrument && pupils_level == lesson_level) {
-			
-			//for evening lessons:
-			if (lesson_time >= 1800 && pupil_age >=16) {
-				
-			}
-		}
+		lessonToBook.book(mat_number, pupil_forename, pupil_surname);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

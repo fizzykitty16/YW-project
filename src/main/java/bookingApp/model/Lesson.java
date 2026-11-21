@@ -8,6 +8,8 @@ public class Lesson {
 	private int time; //formatted 1400
 	private boolean booked;
 	private int pupil_mat;
+	private String pupil_forename;
+	private String pupil_surname;
 	
 	public Lesson() {
 		instrument = "_";
@@ -17,6 +19,8 @@ public class Lesson {
 		time = 0;
 		booked = false;
 		pupil_mat = 0;
+		pupil_forename = "_";
+		pupil_surname = "_";
 	}
 	
 	public Lesson(String instrument, int level, String tutor, String day, int time, boolean booked, int pupil_mat) {
@@ -36,10 +40,17 @@ public class Lesson {
 		else return false;
 	}
 	
+	public void book(int mat_number, String pupil_forename, String pupil_surname) {
+		this.pupil_mat = mat_number;
+		this.pupil_forename = pupil_forename;
+		this.pupil_surname = pupil_surname;
+		this.booked = true;
+	}
+	
 	public String getInstrument() {
 		return instrument;
 	}
-	public int getlevel() {
+	public int getLevel() {
 		return level;
 	}
 	public String getTutor() {
