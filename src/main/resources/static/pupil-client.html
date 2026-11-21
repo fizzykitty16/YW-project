@@ -65,7 +65,7 @@
 	</select>
 	
 	<!-- view available lessons button -->
-	<button type="button" id="viewButton" onclick="view_request();">View Available Lessons</button>
+	<button type="button" id="view_button">View Available Lessons</button>
 </div>
 
 <!-- html element to display available lessons -->
@@ -130,7 +130,7 @@
 		<option value=8>Grade 8</option>
 	</select>
 
-	<button type="button" id="book_button" onclick="book_request();">Book Lesson</button>
+	<button type="button" id="book_button">Book Lesson</button>
 </div>
 
 <!-- html element to display booking output -->
@@ -140,10 +140,11 @@
 </div>
 
 <script>
+	const bookButton = document.getElementById("book_button").addEventListener("click", book_request);//<--from AI response
+	const viewButton = document.gxetElementById("view_button").addEventListener("click", viewRequest);//<--from AI response
+	
 	function view_request() {
 		const available_lessons_output = document.getElementById("available_lessons_output");
-		const viewButton = document.getElementById("viewButton").addEventListener("click", getBookableLessons);;//<--from AI response
-
 		const mat_val = document.getElementById("mat_number").value;
 		const age_val = document.getElementById("pupil_age").value;
 		const instrument_val = document.getElementById("specified_instrument").value;
@@ -163,7 +164,6 @@
 
 	function book_request() {
 		const booking_output = document.getElementById("booking_output");
-		const book_button = document.getElementById("book_button").addEventListener("click", bookLesson);;//<--from AI response
 
 		const mat_val = document.getElementById("mat_number").value;
 		const fn_val = document.getElementById("pupil_forename").value;
