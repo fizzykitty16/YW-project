@@ -65,7 +65,7 @@
 	</select>
 	
 	<!-- view available lessons button -->
-	<button type="button" onclick="view_request();">View Available Lessons</button>
+	<button type="button" id="viewButton" onclick="view_request();">View Available Lessons</button>
 </div>
 
 <!-- html element to display available lessons -->
@@ -130,7 +130,7 @@
 		<option value=8>Grade 8</option>
 	</select>
 
-	<button type="button" onclick="book_request();">Book Lesson</button>
+	<button type="button" id="book_button" onclick="book_request();">Book Lesson</button>
 </div>
 
 <!-- html element to display booking output -->
@@ -142,6 +142,7 @@
 <script>
 	function view_request() {
 		const available_lessons_output = document.getElementById("available_lessons_output");
+		const viewButton = document.getElementById("viewButton").addEventListener("click", getBookableLessons);;//<--from AI response
 
 		const mat_val = document.getElementById("mat_number").value;
 		const age_val = document.getElementById("pupil_age").value;
@@ -150,8 +151,8 @@
 		const day_val = document.getElementById("specified_day").value;
 
 		//set viewing request URL
-		let url = "http://localhost:8080/bookable_lessons/";
-		url += "/view" + encodeURIComponent(mat_val) + encodeURIComponent(age_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(day_val);
+		let view_url = "http://localhost:8080/bookable_lessons/";
+		view_url += "/view" + encodeURIComponent(mat_val) + encodeURIComponent(age_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(day_val);
 
 		//send GET request and process the response
 		fetch(view_url).
@@ -162,6 +163,7 @@
 
 	function book_request() {
 		const booking_output = document.getElementById("booking_output");
+		const book_button = document.getElementById("book_button").addEventListener("click", bookLesson);;//<--from AI response
 
 		const mat_val = document.getElementById("mat_number").value;
 		const fn_val = document.getElementById("pupil_forename").value;
@@ -175,8 +177,8 @@
 		const booking_lesson_level_val = document.getElementById("lesson_level").value;
 
 		//set booking request URL
-		let url = "http://localhost:8080/bookable_lessons/";
-		url += "/book" + encodeURIComponent(mat_val) + encodeURIComponent(fn_val) + encodeURIComponent(sn_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(booking_day_val) + encodeURIComponent(booking_time_val) + encodeURIComponent(booking_tutor_val) + encodeURIComponent(booking_instrument_val) + encodeURIComponent(booking_lesson_level_val);
+		let booking_url = "http://localhost:8080/bookable_lessons/";
+		booking_url += "/book" + encodeURIComponent(mat_val) + encodeURIComponent(fn_val) + encodeURIComponent(sn_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(booking_day_val) + encodeURIComponent(booking_time_val) + encodeURIComponent(booking_tutor_val) + encodeURIComponent(booking_instrument_val) + encodeURIComponent(booking_lesson_level_val);
 
 		fetch(booking_url).
 		then(response => response.json()).
