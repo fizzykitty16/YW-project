@@ -71,7 +71,7 @@ public class BookingService {
 	
 	public List<Lesson> getBookedLessons(String tutor_name) {
 		if (!tutors.contains(tutor_name)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid matriculation number.");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tutor does not exist.");
 		}
 		
 		List<Lesson> bookedLessons = new ArrayList<Lesson>();
