@@ -12,8 +12,8 @@ import bookingApp.model.Lesson;
 @Component
 public class BookingService {
 	private Map<Integer, Lesson> db;
-	
 	private List<Integer> mat_numbers;
+	private List<String> tutors;
 	
 	public BookingService() {
 		mat_numbers = new ArrayList<Integer>();
@@ -24,6 +24,10 @@ public class BookingService {
 		mat_numbers.add(105);
 		mat_numbers.add(106);
 		mat_numbers.add(107);
+		
+		tutors = new ArrayList<String>();
+		tutors.add("John Piano");
+		tutors.add("Jane Strings");
 		
 		db = new HashMap<>();
 		
@@ -61,6 +65,21 @@ public class BookingService {
 		//end of AI-assisted code block
 		
 		return bookableLessons;
+	}
+
+	
+	
+	public List<Lesson> getBookedLessons(String tutor_name) {
+		if (!tutors.contains(tutor_name)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid matriculation number.");
+		}
+		
+		List<Lesson> bookedLessons = new ArrayList<Lesson>();
+		db.values().stream()
+				.filter(lesson -> lesson.isBooked() == false && lesson.getTutor().equals(tutor_name))
+				.forEach(bookedLessons::add);
+		
+		return bookedLessons;
 	}
 	
 	

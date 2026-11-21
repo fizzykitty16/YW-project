@@ -2,9 +2,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Tutor client</title>
 </head>
 <body>
-
+<div>
+	<input id="tutor_name" type="text" placeholder="tutor's full name">
+	
+	<button type="button" id="view_button">View Lessons</button>
+	
+	<div id="booked_lessons_output"></div>
+</div>
+<script>
+	const viewButton = document.getElementById("view_button").addEventListener("click", view_request);//<--from AI response
+	
+	function view_request() {
+	const tutor_name = document.getElementById("tutor_name").value;
+	
+	let view_url = "http://localhost:8080/bookable_lessons/tutorView" + encodeURIComponent(tutor_name);
+	
+	fetch(view_url).
+	then(response => response.json()).
+	then(data => available_lessons_output.innerHTML = JSON.stringify(data)).
+	catch(error => available_lessons_output.innerHTML = error);
+}
+</script>
 </body>
 </html>

@@ -37,6 +37,12 @@ public class BookingController {
 		return lessonList;
 	}
 	
+	@GetMapping("/tutorView")
+	public List<Lesson> getTutorsLessons(@RequestParam String tutor_name) {
+		List<Lesson> lessonList = service.getBookedLessons(tutor_name);
+		return lessonList;
+	}
+	
 	@PostMapping("/book")
 	public ResponseEntity<Void> bookLesson(
 			@RequestParam int mat_number,
