@@ -22,8 +22,8 @@
 	
 	fetch(view_url).
 	then(response => response.json()).
-	then(data => available_lessons_output.innerHTML = JSON.stringify(data)).
-	catch(error => available_lessons_output.innerHTML = error);
+	then(data => booked_lessons_output.innerHTML = JSON.stringify(data)).
+	catch(error => booked_lessons_output.innerHTML = error);
 }
 </script>
 </body>
