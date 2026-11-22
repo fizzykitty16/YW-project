@@ -18,7 +18,6 @@ import bookingApp.service.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/bookable_lessons") //<-- learned to put this here via AI
 public class BookingController {
 	private BookingService service;
 	
@@ -26,7 +25,7 @@ public class BookingController {
 		this.service = s;
 	}
 	
-	@GetMapping("/view") //<-- learned what goes inside ( ) via AI
+	@GetMapping("/bookable_lessons/view")
 	public List<Lesson> getBookableLessons(
 			@RequestParam int mat_number,
 			@RequestParam int pupil_age,
@@ -37,13 +36,13 @@ public class BookingController {
 		return lessonList;
 	}
 	
-	@GetMapping("/tutorView")
+	@GetMapping("/bookable_lessons/tutorView")
 	public List<Lesson> getTutorsLessons(@RequestParam String tutor_name) {
 		List<Lesson> lessonList = service.getBookedLessons(tutor_name);
 		return lessonList;
 	}
 	
-	@PostMapping("/book")
+	@PostMapping("/bookable_lessons/book")
 	public ResponseEntity<Void> bookLesson(
 			@RequestParam int mat_number,
 			@RequestParam String pupil_forename,
@@ -57,6 +56,6 @@ public class BookingController {
 			@RequestParam String lesson_instrument,
 			@RequestParam int lesson_level) {
 		service.bookLesson(mat_number, pupil_forename, pupil_surname, pupil_age, pupils_instrument, pupils_level, lesson_day, lesson_time, lesson_tutor, lesson_instrument, lesson_level);
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
