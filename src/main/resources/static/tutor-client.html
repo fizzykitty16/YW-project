@@ -8,6 +8,15 @@
 <div>
 	<input id="tutor_name" type="text" placeholder="tutor's full name">
 	
+	<select id="specified_day">
+		<option value="mon">Monday</option>
+		<option value="tue">Tuesday</option>
+		<option value="wed">Wednesday</option>
+		<option value="thu">Thursday</option>
+		<option value="fri">Friday</option>
+		<option value="sat">Saturday</option>
+	</select>
+	
 	<button type="button" id="view_button">View Lessons</button>
 	
 	<div id="booked_lessons_output"></div>
@@ -17,8 +26,9 @@
 	
 	function view_request() {
 	const tutor_name = document.getElementById("tutor_name").value;
+	const day_val = document.getElementById("specified_day").value;
 	
-	let view_url = "http://localhost:8080/bookable_lessons/tutorView" + encodeURIComponent(tutor_name);
+	let view_url = "http://localhost:8080/bookable_lessons/tutorView" + encodeURIComponent(tutor_name) + encodeURIComponent(day_val);
 	
 	fetch(view_url).
 	then(response => response.json()).

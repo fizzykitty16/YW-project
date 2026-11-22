@@ -37,9 +37,15 @@ public class BookingController {
 	}
 	
 	@GetMapping("/bookable_lessons/tutorView")
-	public List<Lesson> getTutorsLessons(@RequestParam String tutor_name) {
-		List<Lesson> lessonList = service.getBookedLessons(tutor_name);
+	public List<Lesson> getTutorsLessons(@RequestParam String tutor_name, @RequestParam String specified_day) {
+		List<Lesson> lessonList = service.getBookedLessons(tutor_name, specified_day);
 		return lessonList;
+	}
+	
+	@GetMapping("/bookable_lessons/view_booked")
+	public List<Lesson> getPupilsBookedLessons(@RequestParam int mat_number) {
+		List<Lesson> bookedLessons = service.getBookedLessons(mat_number);
+		return bookedLessons;
 	}
 	
 	@PostMapping("/bookable_lessons/book")
@@ -56,6 +62,16 @@ public class BookingController {
 			@RequestParam String lesson_instrument,
 			@RequestParam int lesson_level) {
 		service.bookLesson(mat_number, pupil_forename, pupil_surname, pupil_age, pupils_instrument, pupils_level, lesson_day, lesson_time, lesson_tutor, lesson_instrument, lesson_level);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@PostMapping("/bookable_lessons/cancel")
+	public ResponseEntity<Void> cancelLesson(
+			@RequestParam int mat_number,
+			@RequestParam String day_to_cancel,
+			@RequestParam int time_to_cancel,
+			@RequestParam String tutor_to_cancel) {
+		service.cancelLesson(mat_number, day_to_cancel, time_to_cancel, tutor_to_cancel);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

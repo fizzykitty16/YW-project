@@ -51,7 +51,6 @@
 		<option value=5>Grade 5</option>
 		<option value=6>Grade 6</option>
 		<option value=7>Grade 7</option>
-		<option value=8>Grade 8</option>
 	</select>
 	
 	<!-- lesson day drop-down menu -->
@@ -110,7 +109,6 @@
 
 	<select id="lesson_tutor">
 		<option value="JP">John Piano</option>
-		<option value="JS">Jane Strings</option>
 	</select>
 
 	<select id="lesson_instrument">
@@ -135,13 +133,64 @@
 
 <!-- html element to display booking output -->
 <div id="booking_output">
-	<!-- will either be "Booking successful!" -->
-	<!-- or an error and its type (input incorrect, lesson unavailable, etc) -->
+	<!-- any error and its type (input incorrect, lesson unavailable, etc) -->
 </div>
+<br><br>
+<div>
+	<button type="button" id="booked_lessons_button">View Booked Lessons</button>
+</div>
+
+<div id="booked_lessons_output"></div>
+<br><br>
+<h3>Cancel a lesson:</h3>
+<div>
+	<select id="cancelled_lesson_day">
+		<option value="mon">Monday</option>
+		<option value="tue">Tuesday</option>
+		<option value="wed">Wednesday</option>
+		<option value="thu">Thursday</option>
+		<option value="fri">Friday</option>
+		<option value="sat">Saturday</option>
+	</select>
+
+	<select id="cancelled_lesson_time">
+		<option value=0900>09:00</option>
+		<option value=0930>09:30</option>
+		<option value=1000>10:00</option>
+		<option value=1030>10:30</option>
+		<option value=1100>11:00</option>
+		<option value=1130>11:30</option>
+		<option value=1200>12:00</option>
+		<option value=1230>12:30</option>
+		<option value=1300>13:00</option>
+		<option value=1330>13:30</option>
+		<option value=1400>14:00</option>
+		<option value=1430>14:30</option>
+		<option value=1500>15:00</option>
+		<option value=1530>15:30</option>
+		<option value=1600>16:00</option>
+		<option value=1630>16:30</option>
+		<option value=1700>17:00</option>
+		<option value=1730>17:30</option>
+		<option value=1800>18:00</option>
+		<option value=1830>18:30</option>
+		<option value=1900>19:00</option>
+		<option value=1930>19:30</option>
+	</select>
+
+	<select id="cancelled_lesson_tutor">
+		<option value="JP">John Piano</option>
+	</select>
+	
+	<button type="button" id="cancel_button">Cancel Lesson</button>
+</div>
+<div id="cancelling_output"></div>
 
 <script>
 	const bookButton = document.getElementById("book_button").addEventListener("click", book_request);//<--from AI response
 	const viewButton = document.getElementById("view_button").addEventListener("click", view_request);//<--from AI response
+	const viewBookedButton = document.getElementById("booked_lessons_button".addEventListener("click", view_booked_request);
+	const cancelButton = document.getElementById("cancel_button").addEventListener("click", cancel_lesson_request);
 	
 	function view_request() {
 		const available_lessons_output = document.getElementById("available_lessons_output");
@@ -151,15 +200,12 @@
 		const pupil_level_val = document.getElementById("pupil_level").value;
 		const day_val = document.getElementById("specified_day").value;
 
-		//set viewing request URL
-		let view_url = "http://localhost:8080/bookable_lessons/";
-		view_url += "/view" + encodeURIComponent(mat_val) + encodeURIComponent(age_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(day_val);
+		let view_url = "http://localhost:8080/bookable_lessons/view" + encodeURIComponent(mat_val) + encodeURIComponent(age_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(day_val);
 
-		//send GET request and process the response
 		fetch(view_url).
-				then(response => response.json()).
-				then(data => available_lessons_output.innerHTML = JSON.stringify(data)).
-				catch(error => available_lessons_output.innerHTML = error);
+			then(response => response.json()).
+			then(data => available_lessons_output.innerHTML = JSON.stringify(data)).
+			catch(error => available_lessons_output.innerHTML = error);
 	}
 
 	function book_request() {
@@ -176,14 +222,35 @@
 		const booking_instrument_val = document.getElementById("lesson_instrument").value;
 		const booking_lesson_level_val = document.getElementById("lesson_level").value;
 
-		//set booking request URL
-		let booking_url = "http://localhost:8080/bookable_lessons/";
-		booking_url += "/book" + encodeURIComponent(mat_val) + encodeURIComponent(fn_val) + encodeURIComponent(sn_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(booking_day_val) + encodeURIComponent(booking_time_val) + encodeURIComponent(booking_tutor_val) + encodeURIComponent(booking_instrument_val) + encodeURIComponent(booking_lesson_level_val);
+		let booking_url = "http://localhost:8080/bookable_lessons/book" + encodeURIComponent(mat_val) + encodeURIComponent(fn_val) + encodeURIComponent(sn_val) + encodeURIComponent(instrument_val) + encodeURIComponent(pupil_level_val) + encodeURIComponent(booking_day_val) + encodeURIComponent(booking_time_val) + encodeURIComponent(booking_tutor_val) + encodeURIComponent(booking_instrument_val) + encodeURIComponent(booking_lesson_level_val);
 
 		fetch(booking_url).
-		then(response => response.json()).
-		then(data => booking_output.innerHTML = JSON.stringify(data)).
-		catch(error => booking_output.innerHTML = error);
+			then(response => response.json()).
+			catch(error => booking_output.innerHTML = error);
+	}
+	
+	function view_booked_request() {
+		const mat_val = document.getElementById("mat_number").value;
+		
+		let view_booked_url = "http://localhost:8080/bookable_lessons/view_booked" + encodeURIComponent(mat_val);
+		
+		fetch(view_booked_url).
+			then(response => response.json()).
+			then(data => booked_lessons_output.innerHTML = JSON.stringify(data)).
+			catch(error => booked_lessons_output.innerHTML = error);
+	}
+	
+	function cancel_lesson_request() {
+		const mat_val = document.getElementById("mat_number").value;
+		const cancelled_day = document.getElementById("cancelled_lesson_day").value;
+		const cancelled_time = document.getElementById("canelled_lesson_time").value;
+		const cancelled_tutor = document.getElementById("canelled_lesson_tutor").value;
+		
+		let cancelling_url = "http://localhost:8080/bookable_lessons/cancel" + encodeURIComponent(mat_val) + encodeURIComponent(cancelled_day) + encodeURIComponent(cancelled_time) + encodeURIComponent(cancelled_tutor);
+		
+		fetch(cancelling_url).
+			then(response => response.json()).
+			catch(error => cancelling_output.innerHTML = error);
 	}
 </script>
 </body>

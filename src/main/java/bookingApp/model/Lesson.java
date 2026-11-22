@@ -34,7 +34,7 @@ public class Lesson {
 	}
 	
 	public boolean isBooked() {
-		if (this.booked == true) {
+		if (this.pupil_mat != 0) {
 			return true;
 		}
 		else return false;
@@ -45,6 +45,11 @@ public class Lesson {
 		this.pupil_forename = pupil_forename;
 		this.pupil_surname = pupil_surname;
 		this.booked = true;
+	}
+	
+	public void cancel() {
+		this.booked = false;
+		this.pupil_mat = 0;
 	}
 	
 	public String getInstrument() {
@@ -61,6 +66,9 @@ public class Lesson {
 	}
 	public int getTime() {
 		return time;
+	}
+	public int getStudentMat() {
+		return pupil_mat;
 	}
 }
 
