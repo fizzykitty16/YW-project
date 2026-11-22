@@ -4,8 +4,8 @@ public class Lesson {
 	private String instrument;
 	private int level;
 	private String tutor;
-	private String day; //formatted mon
-	private int time; //formatted 1400
+	private String day;
+	private int time;
 	private boolean booked;
 	private int pupil_mat;
 	private String pupil_forename;
@@ -71,29 +71,3 @@ public class Lesson {
 		return pupil_mat;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
