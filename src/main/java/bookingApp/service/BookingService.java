@@ -26,8 +26,8 @@ public class BookingService {
 		mat_numbers.add(107);
 		
 		tutors = new ArrayList<String>();
-		tutors.add("John Piano");
-		tutors.add("Jane Strings");
+		tutors.add("JP");
+		tutors.add("JS");
 		
 		db = new HashMap<>();
 		
