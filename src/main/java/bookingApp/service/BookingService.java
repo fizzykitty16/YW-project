@@ -35,14 +35,14 @@ public class BookingService {
 		Lesson piano7JPmon1630 = new Lesson("piano", 7, "JP", "mon", 1630, false, 0);
 		Lesson guitar5JPmon1600 = new Lesson("guitar", 5, "JP", "mon", 1600, false, 0);
 		Lesson guitar3JPtue1700 = new Lesson("guitar", 3, "JP", "tue", 1700, false, 0);
-		Lesson violin1JPwed1830 = new Lesson("violin", 1, "JP", "wed", 1830, false, 0);
+		Lesson defaultBookedviolin1JPwed1830 = new Lesson("violin", 1, "JP", "wed", 1830, true, 102);
 		Lesson defaultBookedpiano6JPmon1900 = new Lesson("piano", 6, "JP", "mon", 1900, true, 101);
 		Lesson violin4JPsat1000 = new Lesson("violin", 4, "JP", "sat", 1000, false, 0);
 		db.put(1, piano3JPmon1600);
 		db.put(2, piano7JPmon1630);
 		db.put(3, guitar5JPmon1600);
 		db.put(4, guitar3JPtue1700);
-		db.put(5, violin1JPwed1830);
+		db.put(5, defaultBookedviolin1JPwed1830);
 		db.put(6, defaultBookedpiano6JPmon1900);
 		db.put(7, violin4JPsat1000);
 	}
